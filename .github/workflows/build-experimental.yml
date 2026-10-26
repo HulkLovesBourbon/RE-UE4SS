@@ -33,10 +33,10 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Configure xmake Project
-        run: xmake f -m Game__Shipping__Win64 -y
+        run: xmake f -m "Game__Shipping__Win64" -v -y
 
       - name: Build Binaries
-        run: xmake
+        run: xmake -v
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
