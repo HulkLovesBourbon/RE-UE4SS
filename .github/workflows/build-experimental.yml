@@ -1,0 +1,41 @@
+name: Build RE-UE4SS Experimental
+
+on:
+  push:
+    branches:
+      - experimental-latest
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: experimental-latest
+
+      - name: Setup xmake
+        uses: xmake-io/action-setup-xmake@v1
+        with:
+          xmake-version: latest
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure xmake Project
+        run: xmake f -m Game__Shipping__Win64 -y
+
+      - name: Build Binaries
+        run: xmake
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: UE4SS-Experimental-Win64
+          path: |
+            build/**/bin/**/*.dll
+            build/**/bin/**/*.lib
+            bin/
