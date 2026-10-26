@@ -14,16 +14,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
+          submodules: recursive
           ref: experimental-latest
-
-      - name: Fix Submodule URLs in .gitmodules
-        run: |
-          (Get-Content .gitmodules) -replace 'git@github.com:', 'https://github.com/' | Set-Content .gitmodules
-          (Get-Content .gitmodules) -replace 'Re-UE4SS', 'UE4SS-RE' | Set-Content .gitmodules
-          git submodule sync
-
-      - name: Initialize Submodules
-        run: git submodule update --init --recursive
 
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
