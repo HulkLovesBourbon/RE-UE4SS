@@ -18,6 +18,7 @@ jobs:
 
       - name: Fix Submodule URLs in .gitmodules
         run: |
+          (Get-Content .gitmodules) -replace 'git@github.com:', 'https://github.com/' | Set-Content .gitmodules
           (Get-Content .gitmodules) -replace 'Re-UE4SS', 'UE4SS-RE' | Set-Content .gitmodules
           git submodule sync
 
