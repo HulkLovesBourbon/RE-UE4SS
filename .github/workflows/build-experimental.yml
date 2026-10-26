@@ -11,6 +11,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Configure Git Submodule Fallback
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/UE4SS-RE/".insteadOf "https://github.com/Re-UE4SS/"
+
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
